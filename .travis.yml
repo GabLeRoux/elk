@@ -3,6 +3,12 @@ matrix:
   - language: bash
     env:
     - tf_version=0.11.8
+    - AWS_REGION=us-east-1
+    - AWS_ACCOUNT=example-aws-account
+    - ENVIRONMENT_NAME=example-env-name
+    - IMAGE_ID=example_image
+    - KIBANA_ADDRESS=example.com
+    - VPC_NAME=example-vpc-name
     sudo: required
     before_script:
     - wget https://releases.hashicorp.com/terraform/${tf_version}/terraform_${tf_version}_linux_amd64.zip -O /tmp/terraform.zip
@@ -12,13 +18,19 @@ matrix:
     - terraform init
     - |
         terraform validate \
-          -var aws_region=us-east-1 \
-          -var aws_account=example \
-          -var environment_name=example \
-          -var image_id=example_image \
-          -var kibana_address=example.com \
-          -var vpc_name=example-vpnc-name
-    - terraform plan
+          -var aws_region=$AWS_REGION \
+          -var aws_account=$AWS_ACCOUNT \
+          -var environment_name=$ENVIRONMENT_NAME \
+          -var image_id=$IMAGE_ID \
+          -var kibana_address=$KIBANA_ADDRESS \
+          -var vpc_name=$VPC_NAME
+    - terraform plan \
+          -var aws_region=$AWS_REGION \
+          -var aws_account=$AWS_ACCOUNT \
+          -var environment_name=$ENVIRONMENT_NAME \
+          -var image_id=$IMAGE_ID \
+          -var kibana_address=$KIBANA_ADDRESS \
+          -var vpc_name=$VPC_NAME
   - language: bash
     services:
     - docker
