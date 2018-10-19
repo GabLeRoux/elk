@@ -2,7 +2,7 @@
 
 This module creates an ELK stack with an Elasticsearch cluster.
 
-![Terraform Graph](./graph.png)
+![Terraform Graph](./graph.svg)
 
 ## Example Usage
 
