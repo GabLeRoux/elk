@@ -24,7 +24,8 @@ matrix:
           -var image_id=$IMAGE_ID \
           -var kibana_address=$KIBANA_ADDRESS \
           -var vpc_name=$VPC_NAME
-    - terraform plan \
+    - |
+        terraform plan \
           -var aws_region=$AWS_REGION \
           -var aws_account=$AWS_ACCOUNT \
           -var environment_name=$ENVIRONMENT_NAME \
