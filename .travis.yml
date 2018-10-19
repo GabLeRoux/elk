@@ -2,7 +2,7 @@ matrix:
   include:
   - language: bash
     env:
-    - tf_version=0.11.8
+    - TERRAFORM_VERSION=0.11.8
     - AWS_REGION=us-east-1
     - AWS_ACCOUNT=example-aws-account
     - ENVIRONMENT_NAME=prod
@@ -11,21 +11,13 @@ matrix:
     - VPC_NAME=example-vpc-name
     sudo: required
     before_script:
-    - wget https://releases.hashicorp.com/terraform/${tf_version}/terraform_${tf_version}_linux_amd64.zip -O /tmp/terraform.zip
+    - wget https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip -O /tmp/terraform.zip
     - sudo unzip -d /usr/local/bin/ /tmp/terraform.zip
     script:
     - cd terraform/
     - terraform init
     - |
         terraform validate \
-          -var aws_region=$AWS_REGION \
-          -var aws_account=$AWS_ACCOUNT \
-          -var environment_name=$ENVIRONMENT_NAME \
-          -var image_id=$IMAGE_ID \
-          -var kibana_address=$KIBANA_ADDRESS \
-          -var vpc_name=$VPC_NAME
-    - |
-        terraform plan \
           -var aws_region=$AWS_REGION \
           -var aws_account=$AWS_ACCOUNT \
           -var environment_name=$ENVIRONMENT_NAME \
