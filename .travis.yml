@@ -10,6 +10,7 @@ before_install:
   - sudo unzip -d /usr/local/bin/ /tmp/terraform.zip
 
 script:
+  - cd terraform/
   - terraform init
   - terraform validate
   - terraform plan
