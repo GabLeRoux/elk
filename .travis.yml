@@ -10,13 +10,14 @@ matrix:
     script:
     - cd terraform/
     - terraform init
-    - terraform validate \
-      -var aws_region=us-east-1 \
-      -var aws_account=example \
-      -var environment_name=example \
-      -var image_id=example_image \
-      -var kibana_address=example.com \
-      -var vpc_name=example-vpnc-name
+    - |
+        terraform validate \
+          -var aws_region=us-east-1 \
+          -var aws_account=example \
+          -var environment_name=example \
+          -var image_id=example_image \
+          -var kibana_address=example.com \
+          -var vpc_name=example-vpnc-name
     - terraform plan
   - language: bash
     services:
