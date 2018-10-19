@@ -1,17 +1,26 @@
-env:
-  - tf_version=0.11.8
-
-sudo: required
-
-language: bash
-
-before_install:
-  - wget https://releases.hashicorp.com/terraform/${tf_version}/terraform_${tf_version}_linux_amd64.zip -O /tmp/terraform.zip
-  - sudo unzip -d /usr/local/bin/ /tmp/terraform.zip
-
-script:
-  - cd terraform/
-  - terraform init
-  - terraform validate
-  - terraform plan
-
+matrix:
+  include:
+  - language: bash
+    env:
+    - tf_version=0.11.8
+    sudo: required
+    before_script:
+    - wget https://releases.hashicorp.com/terraform/${tf_version}/terraform_${tf_version}_linux_amd64.zip -O /tmp/terraform.zip
+    - sudo unzip -d /usr/local/bin/ /tmp/terraform.zip
+    script:
+    - cd terraform/
+    - terraform init
+    - terraform validate -var aws_region=us-east-1 -var aws_account=example -var envronment_name=example -var image_id=example_image -var kibana_address=example.com -var vpc_name=example-vpnc-name
+    - terraform plan
+  - language: bash
+    services:
+    - docker
+    env:
+    - DOCKER_COMPOSE_VERSION=1.4.2
+    before_install:
+    - sudo rm /usr/local/bin/docker-compose
+    - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+    - chmod +x docker-compose
+    - sudo mv docker-compose /usr/local/bin
+    script:
+    - docker-compose build
