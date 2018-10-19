@@ -5,7 +5,7 @@ matrix:
     - tf_version=0.11.8
     - AWS_REGION=us-east-1
     - AWS_ACCOUNT=example-aws-account
-    - ENVIRONMENT_NAME=example-env-name
+    - ENVIRONMENT_NAME=prod
     - IMAGE_ID=example_image
     - KIBANA_ADDRESS=example.com
     - VPC_NAME=example-vpc-name
